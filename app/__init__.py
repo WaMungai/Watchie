@@ -1,7 +1,7 @@
-import os
 from flask import Flask
 from .config import DevConfig
 from flask_bootstrap import Bootstrap
+
 
 #Initialize application
 app = Flask(__name__,instance_relative_config = True)
@@ -13,4 +13,4 @@ app.config.from_pyfile('config.py')
 #Initialize Flask Extensions
 bootstrap = Bootstrap(app)
 
-from app import views
+from app import views,error
