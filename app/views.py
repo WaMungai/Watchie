@@ -10,8 +10,8 @@ def index():
     title = 'Home - Welcome to the best Movie Review Website Online'
     return render_template('index.html', title=title, popular = popular_movies, upcoming = upcoming_movie, now_showing =now_showing_movie)
 
-@app.route('/movie/<int:movie_id>')
-def movie(movie_id):
+@app.route('/movie/<int:id>')
+def movie(id):
     movie = get_movie(id)
     title = f'{movie.title}'
-    return render_template('movie.html',movie=movie)
+    return render_template('movie.html',title=title ,movie=movie)
