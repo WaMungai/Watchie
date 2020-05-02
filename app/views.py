@@ -1,11 +1,11 @@
 from flask import render_template,url_for,request,redirect
-from app import app
+from . import main
 from .request import get_movies,get_movie,search_movie
-from .models import review
+from .models import Review
 from .forms import ReviewForm
 
-Review = review.Review
-@app.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
+
+@main.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
 def new_review(id):
     form = ReviewForm()
     movie = get_movie(id)
@@ -19,7 +19,7 @@ def new_review(id):
     title = f'{movie.title} review'
     return render_template('new_review.html',title = title, review_form=form, movie=movie)
 
-@app.route('/')
+@main.route('/')
 def index():
     popular_movies = get_movies('popular')
     upcoming_movie = get_movies('upcoming')
@@ -33,7 +33,7 @@ def index():
     else:
         return render_template('index.html', title=title, popular = popular_movies, upcoming = upcoming_movie, now_showing =now_showing_movie)
 
-@app.route('/movie/<int:id>')
+@main.route('/movie/<int:id>')
 def movie(id):
     movie = get_movie(id)
     title = f'{movie.title}'
@@ -41,7 +41,7 @@ def movie(id):
     
     return render_template('movie.html',title=title ,movie=movie, reviews = reviews)
 
-@app.route('/search/<movie_name>')
+@main.route('/search/<movie_name>')
 def search(movie_name):
     movie_name_list = movie_name.split(" ")
     movie_name_format = "+".join(movie_name_list)
